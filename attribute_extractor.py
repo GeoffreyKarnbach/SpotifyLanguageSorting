@@ -54,7 +54,7 @@ def has_french_special_char(text):
 
 def percentage_capital_words_above_23(text):
     words = text.split(" ")
-    capital_words = [word for word in words if word[0].isupper()]
+    capital_words = [word for word in words if len(word) > 0 and word[0].isupper()]
     percentage = len(capital_words) / len(words) * 100
 
     if percentage > 23:
@@ -68,16 +68,16 @@ def generate_attribute_array_from(text):
 
     The order of the attributes is:
     1. hasFrenchSpecificWord
-    2. hasEnglishSpecificWord
-    3. hasGermanSpecificWord
+    2. hasGermanSpecificWord
+    3. hasEnglishSpecificWord
     4. hasGermanSpecialChar
     5. hasFrenchSpecialChar
     6. percentageCapitalWordsAbove23
     """
     return [
         has_french_specific_word(text),
-        has_english_specific_word(text),
         has_german_specific_word(text),
+        has_english_specific_word(text),
         has_german_special_char(text),
         has_french_special_char(text),
         percentage_capital_words_above_23(text)
