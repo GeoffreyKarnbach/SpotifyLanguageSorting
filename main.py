@@ -33,12 +33,6 @@ def main():
                 language = evaluate_language_for_text_module(lyrics)
                 result = language
 
-                if language_title != language:
-                    print("Language for title and lyrics do not match for song " + str(idx+1) + " of " + str(len(uris)))
-                    print("Title: " + title)
-                    print("Title language: " + language_title)
-                    print("Lyrics language: " + language + "\n")
-
                 if language == "undefined":
                     result = language_title
                 
@@ -51,7 +45,8 @@ def main():
                 f.write(str(uri).split(":")[-1] + " " + result)
                 if idx != len(uris) - 1:
                     f.write("\n")
-        except:
+        except Exception as e:
+            print(e)
             print("Error occured for song " + str(idx+1) + " of " + str(len(uris)))
             with open("uris_languages.txt", "a") as f:
                 f.write(str(uri).split(":")[-1] + " undefined")

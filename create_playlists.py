@@ -23,26 +23,27 @@ def create_playlists():
     uris_german = [base_name_track + uri[0] for uri in uris_languages if uri[1] == "German"]
     uris_english = [base_name_track + uri[0] for uri in uris_languages if uri[1] == "English"]
     uris_french = [base_name_track + uri[0] for uri in uris_languages if uri[1] == "French"]
-    uris_undefined = [base_name_track + uri[0] for uri in uris_languages if uri[1] == "undefined"]
+    uris_undefined = [base_name_track + uri[0] for uri in uris_languages if uri[1] != "German" and uri[1] != "English" and uri[1] != "French"]
 
-    uris_english.extend(uris_undefined)
-
-    sp.playlist_replace_items
-
-    print("Adding german songs to playlists")
+    print("Adding german songs to playlist")
     sp.playlist_replace_items("spotify:playlist:62EBcsyhwEXJv9B49qczBG", [])
     for group in [uris_german[x:x+100] for x in range(0, len(uris_german), 100)]:
         sp.playlist_add_items("spotify:playlist:62EBcsyhwEXJv9B49qczBG", group)
     
-    print("Adding english songs to playlists")
+    print("Adding english songs to playlist")
     sp.playlist_replace_items("spotify:playlist:06DpDaDzIqr31XUZVwqK2s", [])
     for group in [uris_english[x:x+100] for x in range(0, len(uris_english), 100)]:
         sp.playlist_add_items("spotify:playlist:06DpDaDzIqr31XUZVwqK2s", group)
 
-    print("Adding french songs to playlists")
+    print("Adding french songs to playlist")
     sp.playlist_replace_items("spotify:playlist:1dT7LiJGMh7FtpSS66pDUI", [])
     for group in [uris_french[x:x+100] for x in range(0, len(uris_french), 100)]:
         sp.playlist_add_items("spotify:playlist:1dT7LiJGMh7FtpSS66pDUI", group)
+
+    print("Adding other songs to playlist")
+    sp.playlist_replace_items("spotify:playlist:4Ejj7rUBZ3hapg0MBGVZuK", [])
+    for group in [uris_undefined[x:x+100] for x in range(0, len(uris_undefined), 100)]:
+        sp.playlist_add_items("spotify:playlist:4Ejj7rUBZ3hapg0MBGVZuK", group)
 
     print("Done")
 

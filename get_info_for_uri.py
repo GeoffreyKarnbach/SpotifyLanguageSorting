@@ -25,6 +25,9 @@ def get_title_from_uri(uri):
     scope = "user-library-read"
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
     info = sp.track(uri)
+    if info is None:
+        return None
+    
     return info["name"]
 
 if __name__ == "__main__":
