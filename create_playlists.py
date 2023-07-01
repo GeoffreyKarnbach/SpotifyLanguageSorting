@@ -10,6 +10,12 @@ def create_playlists():
         os.environ["SPOTIPY_CLIENT_SECRET"]=f.readline().strip().split("=")[-1]
         os.environ["SPOTIPY_REDIRECT_URI"]=f.readline().strip().split("=")[-1]
 
+    with open(".playlists", "r") as f:
+        german_playlist = f.readline().strip().split("=")[-1]
+        english_playlist = f.readline().strip().split("=")[-1]
+        french_playlist = f.readline().strip().split("=")[-1]
+        other_playlist = f.readline().strip().split("=")[-1]
+
     scope = "playlist-modify-private"
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
@@ -26,24 +32,24 @@ def create_playlists():
     uris_undefined = [base_name_track + uri[0] for uri in uris_languages if uri[1] != "German" and uri[1] != "English" and uri[1] != "French"]
 
     print("Adding german songs to playlist")
-    sp.playlist_replace_items("spotify:playlist:62EBcsyhwEXJv9B49qczBG", [])
+    sp.playlist_replace_items(german_playlist, [])
     for group in [uris_german[x:x+100] for x in range(0, len(uris_german), 100)]:
-        sp.playlist_add_items("spotify:playlist:62EBcsyhwEXJv9B49qczBG", group)
+        sp.playlist_add_items(german_playlist, group)
     
     print("Adding english songs to playlist")
-    sp.playlist_replace_items("spotify:playlist:06DpDaDzIqr31XUZVwqK2s", [])
+    sp.playlist_replace_items(english_playlist, [])
     for group in [uris_english[x:x+100] for x in range(0, len(uris_english), 100)]:
-        sp.playlist_add_items("spotify:playlist:06DpDaDzIqr31XUZVwqK2s", group)
+        sp.playlist_add_items(english_playlist, group)
 
     print("Adding french songs to playlist")
-    sp.playlist_replace_items("spotify:playlist:1dT7LiJGMh7FtpSS66pDUI", [])
+    sp.playlist_replace_items(french_playlist, [])
     for group in [uris_french[x:x+100] for x in range(0, len(uris_french), 100)]:
-        sp.playlist_add_items("spotify:playlist:1dT7LiJGMh7FtpSS66pDUI", group)
+        sp.playlist_add_items(french_playlist, group)
 
     print("Adding other songs to playlist")
-    sp.playlist_replace_items("spotify:playlist:4Ejj7rUBZ3hapg0MBGVZuK", [])
+    sp.playlist_replace_items(other_playlist, [])
     for group in [uris_undefined[x:x+100] for x in range(0, len(uris_undefined), 100)]:
-        sp.playlist_add_items("spotify:playlist:4Ejj7rUBZ3hapg0MBGVZuK", group)
+        sp.playlist_add_items(other_playlist, group)
 
     print("Done")
 
